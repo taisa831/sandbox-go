@@ -20,16 +20,21 @@ func ReadAtLeast() string {
 	return string(buf[:n])
 }
 
-func ReadFull() (int, error) {
+func ReadFull() string {
 	file, _ := os.Open("testdata/src.txt")
 	buf := make([]byte, 4)
-	return io.ReadFull(file, buf)
+	n, _ := io.ReadFull(file, buf)
+	return string(buf[:n])
 }
 
-func CopyN() (int64, error) {
+func CopyN() string {
 	srcFile, _ := os.Open("testdata/src.txt")
 	dstFile, _ := os.Create("testdata/dst.txt")
-	return io.CopyN(dstFile, srcFile, 3)
+	written, _ := io.CopyN(dstFile, srcFile, 3)
+	file, _ := os.Open("testdata/dst.txt")
+	buf := make([]byte, written)
+	n, _ := file.Read(buf)
+	return string(buf[:n])
 }
 
 func Copy() (int64, error) {

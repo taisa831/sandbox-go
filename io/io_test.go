@@ -19,16 +19,16 @@ func TestReadAtLeast(t *testing.T) {
 }
 
 func TestReadFull(t *testing.T) {
-	n, _ := ReadFull()
-	if n != 4 {
-		t.Errorf("TestReadFull Error %d", n)
+	str := ReadFull()
+	if str != "0123" {
+		t.Errorf("TestReadFull Error %s", str)
 	}
 }
 
 func TestCopyN(t *testing.T) {
-	n, _ := CopyN()
-	if n != 3 {
-		t.Errorf("TestCopyN Error %d", n)
+	str := CopyN()
+	if str != "012" {
+		t.Errorf("TestCopyN Error %s", str)
 	}
 }
 
