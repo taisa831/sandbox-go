@@ -5,16 +5,16 @@ import (
 )
 
 func TestWriteString(t *testing.T) {
-	n, _ := WriteString()
-	if n != 10 {
-		t.Error("WriteString Error")
+	str := WriteString()
+	if str != "0123456789" {
+		t.Errorf("WriteString Error %s", str)
 	}
 }
 
 func TestReadAtLeast(t *testing.T) {
-	n, _ := ReadAtLeast()
-	if n != 3 {
-		t.Errorf("TestReadAtLeast Error %d", n)
+	str := ReadAtLeast()
+	if str != "012" {
+		t.Errorf("TestReadAtLeast Error %s", str)
 	}
 }
 

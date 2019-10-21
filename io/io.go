@@ -2,18 +2,22 @@ package io
 
 import (
 	"io"
+	"io/ioutil"
 	"os"
 )
 
-func WriteString() (int, error) {
+func WriteString() string {
 	file, _ := os.Create("testdata/src.txt")
-	return io.WriteString(file, "0123456789")
+	io.WriteString(file, "0123456789")
+	b, _ := ioutil.ReadFile("testdata/src.txt")
+	return string(b)
 }
 
-func ReadAtLeast() (int, error) {
+func ReadAtLeast() string {
 	file, _ := os.Open("testdata/src.txt")
 	buf := make([]byte, 3)
-	return io.ReadAtLeast(file, buf, 3)
+	n, _ := io.ReadAtLeast(file, buf, 3)
+	return string(buf[:n])
 }
 
 func ReadFull() (int, error) {
