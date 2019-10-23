@@ -13,7 +13,7 @@ func TestWriteString(t *testing.T) {
 
 func TestReadAtLeast(t *testing.T) {
 	str := ReadAtLeast()
-	if str != "012" {
+	if str != "0123456789" {
 		t.Errorf("TestReadAtLeast Error %s", str)
 	}
 }
@@ -33,57 +33,64 @@ func TestCopyN(t *testing.T) {
 }
 
 func TestCopy(t *testing.T) {
-	n, _ := Copy()
-	if n != 10 {
-		t.Errorf("TestCopy Error %d", n)
+	str := Copy()
+	if str != "0123456789" {
+		t.Errorf("TestCopy Error %s", str)
 	}
 }
 
 func TestCopyBuffer(t *testing.T) {
-	n, _ := CopyBuffer()
-	if n != 10 {
-		t.Errorf("TestCopyBuffer Error %d", n)
+	str := CopyBuffer()
+	if str != "0123456789" {
+		t.Errorf("TestCopyBuffer Error %s", str)
 	}
 }
 
 func TestLimitReaderRead(t *testing.T) {
-	n, _ := LimitReaderRead()
-	if n != 2 {
-		t.Errorf("TestLimitReaderRead Error %d" , n)
+	str := LimitReaderRead()
+	if str != "012" {
+		t.Errorf("TestLimitReaderRead Error %s" , str)
+	}
+}
+
+func TestLimitReaderRead2(t *testing.T) {
+	str := LimitReaderRead2()
+	if str != "01234" {
+		t.Errorf("TestLimitReaderRead Error %s" , str)
 	}
 }
 
 func TestSectionReaderRead(t *testing.T) {
-	n, _ := SectionReaderRead()
-	if n != 3 {
-		t.Errorf("TestSectionReaderRead Error %d", n)
+	str := SectionReaderRead()
+	if str != "345" {
+		t.Errorf("TestSectionReaderRead Error %s", str)
 	}
 }
 
 func TestSectionReaderSeek(t *testing.T) {
-	n, _ := SectionReaderSeek()
-	if n != 2 {
-		t.Errorf("TestSectionReaderSeek Error %d", n)
+	str := SectionReaderSeek()
+	if str != "567" {
+		t.Errorf("TestSectionReaderSeek Error %s", str)
 	}
 }
 
 func TestSectionReaderReadAt(t *testing.T) {
-	n, _ := SectionReaderReadAt()
-	if n != 3 {
-		t.Errorf("TestSectionReaderReadAt Error %d", n)
+	str := SectionReaderReadAt()
+	if str != "789" {
+		t.Errorf("TestSectionReaderReadAt Error %s", str)
 	}
 }
 
 func TestSectionReaderSize(t *testing.T) {
 	size := SectionReaderSize()
-	if size != 5 {
+	if size != 9 {
 		t.Errorf("TestSectionReaderSize Error %d", size)
 	}
 }
 
 func TestTeeReaderRead(t *testing.T) {
-	n, _ := TeeReaderRead()
-	if n != 3 {
-		t.Errorf("TestTeeReaderRead Error %d", n)
+	str := TeeReaderRead()
+	if str != "012" {
+		t.Errorf("TestTeeReaderRead Error %s", str)
 	}
 }
