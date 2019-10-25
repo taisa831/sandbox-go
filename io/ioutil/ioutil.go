@@ -1,6 +1,7 @@
 package ioutil
 
 import (
+	"bytes"
 	"io/ioutil"
 	"os"
 )
@@ -26,4 +27,16 @@ func WriteFile() string {
 func ReadDir() []os.FileInfo {
 	fileInfo, _ := ioutil.ReadDir("testdata")
 	return fileInfo
+}
+
+func NopCloserClose() error {
+	reader := bytes.NewBufferString("test")
+	readCloser := ioutil.NopCloser(reader)
+	return readCloser.Close()
+}
+
+func DevNullWrite() int {
+	writer := ioutil.Discard
+	n, _ := writer.Write(make([]byte, 1024))
+	return n
 }

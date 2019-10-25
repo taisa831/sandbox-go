@@ -31,3 +31,15 @@ func TestReadDir(t *testing.T) {
 		}
 	}
 }
+
+func TestNopCloserClose(t *testing.T) {
+	if NopCloserClose() != nil {
+		t.Errorf("TestNopCloserClose Error. %v", NopCloserClose())
+	}
+}
+
+func TestDevNullWrite(t *testing.T) {
+	if DevNullWrite() != 1024 {
+		t.Errorf("TestDevNullWrite Error. %v", DevNullWrite())
+	}
+}
