@@ -12,22 +12,36 @@ func TestWriteString(t *testing.T) {
 }
 
 func TestReadAtLeast(t *testing.T) {
-	str := ReadAtLeast()
-	if str != "0123456789" {
+	str, _ := ReadAtLeast(5, 2)
+	if str != "01234" {
 		t.Errorf("TestReadAtLeast Error %s", str)
+	}
+}
+
+func TestReadAtLeast_shortBuffer(t *testing.T) {
+	_, err := ReadAtLeast(1, 2)
+	if err.Error() != "short buffer" {
+		t.Errorf("TestReadAtLeast Error %s", err.Error())
+	}
+}
+
+func TestReadAtLeast_unexpectedEOF(t *testing.T) {
+	_, err := ReadAtLeast(20, 15)
+	if err.Error() != "unexpected EOF" {
+		t.Errorf("TestReadAtLeast Error %s", err.Error())
 	}
 }
 
 func TestReadFull(t *testing.T) {
 	str := ReadFull()
-	if str != "0123" {
+	if str != "01234" {
 		t.Errorf("TestReadFull Error %s", str)
 	}
 }
 
 func TestCopyN(t *testing.T) {
 	str := CopyN()
-	if str != "012" {
+	if str != "01234" {
 		t.Errorf("TestCopyN Error %s", str)
 	}
 }

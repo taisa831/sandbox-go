@@ -13,16 +13,16 @@ func WriteString() string {
 	return string(b)
 }
 
-func ReadAtLeast() string {
+func ReadAtLeast(b int, min int) (string, error) {
 	file, _ := os.Open("testdata/src.txt")
-	buf := make([]byte, 10)
-	n, _ := io.ReadAtLeast(file, buf, 2)
-	return string(buf[:n])
+	buf := make([]byte, b)
+	n, err := io.ReadAtLeast(file, buf, min)
+	return string(buf[:n]), err
 }
 
 func ReadFull() string {
 	file, _ := os.Open("testdata/src.txt")
-	buf := make([]byte, 4)
+	buf := make([]byte, 5)
 	n, _ := io.ReadFull(file, buf)
 	return string(buf[:n])
 }
@@ -30,8 +30,7 @@ func ReadFull() string {
 func CopyN() string {
 	srcFile, _ := os.Open("testdata/src.txt")
 	dstFile, _ := os.Create("testdata/dst.txt")
-	written, _ := io.CopyN(dstFile, srcFile, 3)
-
+	written, _ := io.CopyN(dstFile, srcFile, 5)
 	file, _ := os.Open("testdata/dst.txt")
 	buf := make([]byte, written)
 	n, _ := file.Read(buf)
@@ -42,7 +41,6 @@ func Copy() string {
 	srcFile, _ := os.Open("testdata/src.txt")
 	dstFile, _ := os.Create("testdata/dst.txt")
 	written, _ := io.Copy(dstFile, srcFile)
-
 	buf := make([]byte, written)
 	file, _ := os.Open("testdata/dst.txt")
 	n, _ := file.Read(buf)
@@ -52,8 +50,7 @@ func Copy() string {
 func CopyBuffer() string {
 	srcFile, _ := os.Open("testdata/src.txt")
 	dstFile, _ := os.Create("testdata/dst.txt")
-	written, _ := io.CopyBuffer(dstFile, srcFile, make([]byte, 3))
-
+	written, _ := io.CopyBuffer(dstFile, srcFile, make([]byte, 5))
 	buf := make([]byte, written)
 	file, _ := os.Open("testdata/dst.txt")
 	n, _ := file.Read(buf)
