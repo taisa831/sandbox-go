@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// writerに文字列を書き込む
 func WriteString() string {
 	file, _ := os.Create("testdata/src.txt")
 	_, _ = io.WriteString(file, "0123456789")
@@ -13,6 +14,7 @@ func WriteString() string {
 	return string(b)
 }
 
+// 指定した値は最低限読み込みバッファー分すべて読み込む
 func ReadAtLeast(b int, min int) (string, error) {
 	file, _ := os.Open("testdata/src.txt")
 	buf := make([]byte, b)
@@ -20,6 +22,7 @@ func ReadAtLeast(b int, min int) (string, error) {
 	return string(buf[:n]), err
 }
 
+// 指定したバッファー分すべて読み込む
 func ReadFull() string {
 	file, _ := os.Open("testdata/src.txt")
 	buf := make([]byte, 5)
@@ -27,6 +30,7 @@ func ReadFull() string {
 	return string(buf[:n])
 }
 
+// writerへ指定した値をコピーする
 func CopyN() string {
 	srcFile, _ := os.Open("testdata/src.txt")
 	dstFile, _ := os.Create("testdata/dst.txt")
@@ -37,6 +41,7 @@ func CopyN() string {
 	return string(buf[:n])
 }
 
+// readerをwriterにコピーする
 func Copy() string {
 	srcFile, _ := os.Open("testdata/src.txt")
 	dstFile, _ := os.Create("testdata/dst.txt")
@@ -47,6 +52,7 @@ func Copy() string {
 	return string(buf[:n])
 }
 
+// readerをwriterに指定したバッファー分コピーする
 func CopyBuffer() string {
 	srcFile, _ := os.Open("testdata/src.txt")
 	dstFile, _ := os.Create("testdata/dst.txt")
@@ -57,6 +63,7 @@ func CopyBuffer() string {
 	return string(buf[:n])
 }
 
+// 値を制限したreaderを取得する
 func LimitReaderRead() string {
 	srcFile, _ := os.Open("testdata/src.txt")
 	limitedReader := io.LimitedReader{srcFile, 5}
@@ -65,6 +72,7 @@ func LimitReaderRead() string {
 	return string(buf[:n])
 }
 
+// 値を制限したreaderを取得し読み込む
 func LimitReaderRead2() string {
 	srcFile, _ := os.Open("testdata/src.txt")
 	limitedReader := io.LimitedReader{srcFile, 5}
@@ -73,6 +81,7 @@ func LimitReaderRead2() string {
 	return string(buf[:n])
 }
 
+// 指定した値でセクション分けしたreaderを取得し読み込む
 func SectionReaderRead() string {
 	file, _ := os.Open("testdata/src.txt")
 	sectionReader := io.NewSectionReader(file, 3, 5)
@@ -81,6 +90,7 @@ func SectionReaderRead() string {
 	return string(buf[:n])
 }
 
+// セクションリーダーの読み込み位置を変更する
 func SectionReaderSeek() string {
 	file, _ := os.Open("testdata/src.txt")
 	sectionReader := io.NewSectionReader(file, 5, 10)
@@ -90,6 +100,7 @@ func SectionReaderSeek() string {
 	return string(buf[:n])
 }
 
+// セクションリーダーを指定した位置から読み込む
 func SectionReaderReadAt() string {
 	file, _ := os.Open("testdata/src.txt")
 	sectionReader := io.NewSectionReader(file, 5, 10)
@@ -98,12 +109,14 @@ func SectionReaderReadAt() string {
 	return string(buf[:n])
 }
 
+// セクションリーダーのサイズを取得する
 func SectionReaderSize() int64 {
 	file, _ := os.Open("testdata/src.txt")
 	sectionReader := io.NewSectionReader(file, 5, 9)
 	return sectionReader.Size()
 }
 
+// readerとwriterを渡しておいて読み込んだら同時にwriterにも書き込む
 func TeeReaderRead() string {
 	srcFile, _ := os.Open("testdata/src.txt")
 	dstFile, _ := os.Create("testdata/dst.txt")
