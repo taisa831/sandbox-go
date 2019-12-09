@@ -7,12 +7,10 @@ import (
 	"math"
 	"math/rand"
 	"testing"
+	"time"
 )
 
 func TestAbs(t *testing.T) {
-
-	t.Error()
-
 	got := math.Abs(-1)
 	if got != 1 {
 		t.Errorf("Abs(-1) = %f; want 1", got)
@@ -109,63 +107,95 @@ func TestGroupedParallel(t *testing.T) {
 			Want: true,
 			WantErr: false,
 		},
-		{
-			Name: "test2",
-			Want: true,
-			WantErr: false,
-		},
-		{
-			Name: "test3",
-			Want: true,
-			WantErr: false,
-		},
-		{
-			Name: "test4",
-			Want: true,
-			WantErr: false,
-		},
+		//{
+		//	Name: "test2",
+		//	Want: true,
+		//	WantErr: false,
+		//},
+		//{
+		//	Name: "test3",
+		//	Want: true,
+		//	WantErr: false,
+		//},
+		//{
+		//	Name: "test4",
+		//	Want: true,
+		//	WantErr: false,
+		//},
 	}
 
 	for _, tc := range tests {
 		tc := tc // capture range variable
 		t.Run(tc.Name, func(t *testing.T) {
-			t.Parallel()
 			t.Run("A=1", func(t *testing.T) {
+				t.Parallel()
 				got := math.Abs(-1)
+				time.Sleep(2 * time.Second)
 				if got != 1 {
 					t.Errorf("Abs(-1) = %f; want 1", got)
 				}
+				t.Logf("Len=2: %s", time.Now())
 			})
 			t.Run("A=2", func(t *testing.T) {
+				t.Parallel()
 				got := math.Abs(-1)
 				if got != 1 {
 					t.Errorf("Abs(-1) = %f; want 1", got)
 				}
+				t.Logf("Len=2: %s", time.Now())
 			})
 			t.Run("B=1", func(t *testing.T) {
+				t.Parallel()
 				got := math.Abs(-1)
 				if got != 1 {
 					t.Errorf("Abs(-1) = %f; want 1", got)
 				}
+				t.Logf("Len=2: %s", time.Now())
 			})
 		})
 	}
+	t.Logf("%s", "finished")
 }
 
-//func TestTeardownParallel(t *testing.T) {
-//	// This Run will not return until the parallel tests finish.
-//	t.Run("group", func(t *testing.T) {
-//		t.Run("Test1", parallelTest1)
-//		t.Run("Test2", parallelTest2)
-//		t.Run("Test3", parallelTest3)
-//	})
-//	// <tear-down code>
+func TestTeardownParallel(t *testing.T) {
+	// This Run will not return until the parallel tests finish.
+	t.Run("group", func(t *testing.T) {
+		t.Run("Test1", func(t *testing.T) {
+			t.Parallel()
+			got := math.Abs(-1)
+			time.Sleep(2 * time.Second)
+			if got != 1 {
+				t.Errorf("Abs(-1) = %f; want 1", got)
+			}
+			t.Logf("Len=2: %s", time.Now())
+		})
+		t.Run("Test2", func(t *testing.T) {
+			t.Parallel()
+			got := math.Abs(-1)
+			time.Sleep(2 * time.Second)
+			if got != 1 {
+				t.Errorf("Abs(-1) = %f; want 1", got)
+			}
+			t.Logf("Len=2: %s", time.Now())
+		})
+		t.Run("Test3", func(t *testing.T) {
+			t.Parallel()
+			got := math.Abs(-1)
+			time.Sleep(2 * time.Second)
+			if got != 1 {
+				t.Errorf("Abs(-1) = %f; want 1", got)
+			}
+			t.Logf("Len=2: %s", time.Now())
+		})
+	})
+	// <tear-down code>
+	t.Logf("%s", "finished")
+}
+
+//func TestMain(m *testing.M) {
+//	println("前処理")
+//
+//	m.Run()
+//
+//	println("後処理")
 //}
-
-func TestMain(m *testing.M) {
-	println("前処理")
-
-	m.Run()
-
-	println("後処理")
-}
